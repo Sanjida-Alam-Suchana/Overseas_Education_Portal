@@ -227,6 +227,12 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Server.Models.MentorProfile", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("AccountId")
                         .HasColumnType("integer");
 
@@ -261,7 +267,7 @@ namespace Server.Data.Migrations
                     b.Property<int>("UniversityId")
                         .HasColumnType("integer");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProgramOfStudyId");
 
@@ -375,6 +381,7 @@ namespace Server.Data.Migrations
                     b.HasOne("Server.Models.MentorProfile", "Mentor")
                         .WithMany()
                         .HasForeignKey("MentorId")
+                        .HasPrincipalKey("AccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -424,6 +431,7 @@ namespace Server.Data.Migrations
                     b.HasOne("Server.Models.MentorProfile", "Mentor")
                         .WithMany("Plans")
                         .HasForeignKey("MentorId")
+                        .HasPrincipalKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

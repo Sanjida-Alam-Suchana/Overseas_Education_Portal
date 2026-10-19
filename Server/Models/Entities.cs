@@ -49,7 +49,8 @@ public sealed class Scholarship
 
 public sealed class MentorProfile
 {
-    [Key] public int AccountId { get; set; }
+    public int Id { get; set; }
+    public int AccountId { get; set; }
     public Account Account { get; set; } = null!;
     public int UniversityId { get; set; }
     public University University { get; set; } = null!;

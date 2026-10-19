@@ -18,7 +18,7 @@ You have already created the PostgreSQL server and a database named `overseasedu
 
 5. Visit `http://localhost:5000`. In pgAdmin, right-click `overseaseducation` → **Refresh** → **Schemas → public → Tables** to see the tables and seeded sample mentors/sessions.
 
-The initial migration is `Data/Migrations/20261019053214_InitialCreate.cs`; it creates all 11 tables, indexes, constraints, and relationships. The app also applies pending migrations on startup and inserts demo rows. For future model changes, create a migration with `dotnet ef migrations add MigrationName`, then apply it with `dotnet ef database update`.
+The initial migration is `Data/Migrations/20261019053214_InitialCreate.cs`; `Data/Migrations/20261019054303_AddMentorProfileId.cs` adds a separate generated ID to mentor profiles. All 11 tables now have their own generated primary key. The app applies pending migrations on startup and inserts demo rows. For future model changes, create a migration with `dotnet ef migrations add MigrationName`, then apply it with `dotnet ef database update`.
 
 ## MVC structure
 
@@ -32,7 +32,7 @@ The initial migration is `Data/Migrations/20261019053214_InitialCreate.cs`; it c
 
 ## Pages
 
-`/`, `/find-mentor`, `/countries/{name}`, `/mentor/{id}`, `/scholarships`, `/group-sessions`, `/my-bookings`, `/mentor/profile`, `/faq`, `/login`, `/register`.
+`/`, `/find-mentor`, `/countries/{name}`, `/mentor/{id}`, `/scholarships`, `/group-sessions`, `/my-bookings`, `/mentor/profile`, `/account`, `/faq`, `/login`, `/register`.
 
 ## API
 

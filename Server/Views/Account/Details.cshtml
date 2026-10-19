@@ -1,0 +1,15 @@
+@{ ViewData["Title"] = "Your account"; }
+<section class="dynamic-page">
+    <div class="section-kicker">YOUR ACCOUNT</div>
+    <h1>Welcome back.</h1>
+    <p class="page-lead">Your account details are below.</p>
+    <div class="form-card" data-account-details>
+        <div class="form-grid">
+            <div class="form-field full"><label>Account ID</label><p data-user-id>Loading…</p></div>
+            <div class="form-field full"><label>Name</label><p data-user-name>Loading…</p></div>
+            <div class="form-field full"><label>Email</label><p data-user-email>Loading…</p></div>
+            <div class="form-field full"><label>Account type</label><p data-user-role>Loading…</p></div>
+        </div>
+        <a class="button button-dark" data-account-next href="/my-bookings">Continue <span>↗</span></a>
+    </div>
+</section>

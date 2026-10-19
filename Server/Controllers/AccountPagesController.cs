@@ -6,4 +6,5 @@ public sealed class AccountController : Controller
 {
     [HttpGet("/login")] public IActionResult Login() => View();
     [HttpGet("/register")] public IActionResult Register() => View();
+    [HttpGet("/account")] public IActionResult Details() => View("Details");
 }

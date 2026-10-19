@@ -8,6 +8,13 @@ namespace Server.Controllers;
 [ApiController, Route("api/auth")]
 public sealed class AuthController(IAccountRepository accounts, ISessionService sessions, IPasswordHasher<Account> hasher) : ControllerBase
 {
+    [HttpGet("me"), RequireSession]
+    public IActionResult Me()
+    {
+        var user = this.User();
+        return Ok(new { id = user.AccountId, user.Name, user.Email, user.Role });
+    }
+
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request, CancellationToken ct)
     {

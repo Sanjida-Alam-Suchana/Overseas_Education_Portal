@@ -26,14 +26,16 @@ public sealed class PortalDbContext(DbContextOptions<PortalDbContext> options) :
         b.Entity<ProgramOfStudy>().HasIndex(x => x.Name).IsUnique();
         b.Entity<Scholarship>().HasIndex(x => x.Name).IsUnique();
         b.Entity<MentorProfile>().HasOne(x => x.Account).WithOne(x => x.MentorProfile).HasForeignKey<MentorProfile>(x => x.AccountId).OnDelete(DeleteBehavior.Cascade);
+        b.Entity<MentorProfile>().HasAlternateKey(x => x.AccountId);
         b.Entity<MentorProfile>().HasOne(x => x.University).WithMany(x => x.Mentors).HasForeignKey(x => x.UniversityId).OnDelete(DeleteBehavior.Restrict);
         b.Entity<MentorProfile>().HasOne(x => x.Program).WithMany(x => x.Mentors).HasForeignKey(x => x.ProgramOfStudyId).OnDelete(DeleteBehavior.Restrict);
         b.Entity<MentorProfile>().HasOne(x => x.Scholarship).WithMany(x => x.Mentors).HasForeignKey(x => x.ScholarshipId).OnDelete(DeleteBehavior.SetNull);
         b.Entity<MentorPlan>().HasIndex(x => new { x.MentorId, x.DurationMinutes }).IsUnique();
+        b.Entity<MentorPlan>().HasOne(x => x.Mentor).WithMany(x => x.Plans).HasForeignKey(x => x.MentorId).HasPrincipalKey(x => x.AccountId).OnDelete(DeleteBehavior.Cascade);
         b.Entity<MentorPlan>().HasCheckConstraint("CK_MentorPlans_Duration", "\"DurationMinutes\" IN (20,40)");
         b.Entity<MentorPlan>().Property(x => x.Price).HasPrecision(10, 2);
         b.Entity<Booking>().HasOne(x => x.Student).WithMany().HasForeignKey(x => x.StudentId).OnDelete(DeleteBehavior.Restrict);
-        b.Entity<Booking>().HasOne(x => x.Mentor).WithMany().HasForeignKey(x => x.MentorId).OnDelete(DeleteBehavior.Restrict);
+        b.Entity<Booking>().HasOne(x => x.Mentor).WithMany().HasForeignKey(x => x.MentorId).HasPrincipalKey(x => x.AccountId).OnDelete(DeleteBehavior.Restrict);
         b.Entity<Booking>().HasOne(x => x.MentorPlan).WithMany().HasForeignKey(x => x.MentorPlanId).OnDelete(DeleteBehavior.Restrict);
         b.Entity<GroupSession>().HasOne(x => x.Mentor).WithMany().HasForeignKey(x => x.MentorId).OnDelete(DeleteBehavior.Restrict);
         b.Entity<SessionRegistration>().HasIndex(x => new { x.SessionId, x.StudentId }).IsUnique();
