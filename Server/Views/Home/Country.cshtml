@@ -1,0 +1,3 @@
+@model CountryPageModel
+@{ ViewData["Title"] = Model.Country.Title; }
+<section class="dynamic-page"><div class="country-hero"><div class="section-kicker">YOUR DESTINATION, YOUR PEOPLE</div><h1>@Model.Country.Title</h1><p class="page-lead">@Model.Country.Description</p><a class="button button-dark" href="/find-mentor?country=@Uri.EscapeDataString(Model.Country.Name)">Meet @Model.Country.MentorCount mentors <span>↗</span></a></div><h2>Mentors in @Model.Country.Name</h2><div class="mentor-grid">@foreach(var mentor in Model.Mentors){<partial name="_MentorCard" model="mentor"/>}</div>@if(Model.Mentors.Count==0){<div class="empty-state">No mentors listed for this destination yet.</div>}</section>
